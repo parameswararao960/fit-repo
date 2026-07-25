@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dynamic Design System Variables - Edit here to change colors everywhere */
+  --color-bg: #0d0e10;
+  --color-surface: #141619;
+  --color-surface-alt: #1a1d21;
+  --color-card: #1e2126;
+  --color-card-hover: #252930;
+  --color-border: #2e3238;
+  --color-border-soft: #24272c;
+  --color-text: #F7F7F6;
+  --color-text-dim: #C0C3C7;
+  --color-text-mute: #8A8D93;
+  --color-volt: #28fc59;
+  --color-volt-dim: #9fd41f;
+  --color-volt-glow: rgba(198, 255, 61, 0.25);
+  --color-ember: #FF5A36;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Ensure placeholder visibility in dark inputs */
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-mute) !important;
+  opacity: 0.8 !important;
+}
+
+/* Fix option elements background/color on dark themes across all browsers */
+option {
+  background-color: var(--color-card) !important;
+  color: var(--color-text) !important;
+}
+
+/* Style date/time picker browser icons for dark themes */
+input::-webkit-calendar-picker-indicator {
+  filter: invert(1) !important;
+  cursor: pointer !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-volt);
+}
