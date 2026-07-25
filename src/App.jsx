@@ -394,7 +394,6 @@ function Hero({ goConsult, onOpenMedia }) {
 
           {/* Left Text */}
           <div className="lg:col-span-7">
-            <Eyebrow>CSCS &amp; NASM Certified · 1-on-1 Coaching</Eyebrow>
             <h1
               className="text-5xl sm:text-7xl lg:text-8xl leading-[0.96] uppercase mb-6 tracking-tight"
               style={{ ...fontDisplay, color: C.text }}
@@ -408,7 +407,7 @@ function Hero({ goConsult, onOpenMedia }) {
               actually moves the numbers — custom programming, video form reviews, and real client transformations.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="hidden lg:flex flex-col sm:flex-row gap-4 mb-8">
               <PrimaryButton onClick={goConsult}>Book Consultation</PrimaryButton>
             </div>
 
@@ -478,6 +477,11 @@ function Hero({ goConsult, onOpenMedia }) {
                 </span>
               </div>
             </div>
+
+            {/* Mobile-only CTA Button directly below the video card */}
+            <div className="flex lg:hidden flex-col gap-4 mt-6">
+              <PrimaryButton onClick={goConsult}>Book Consultation</PrimaryButton>
+            </div>
           </div>
 
         </div>
@@ -516,10 +520,9 @@ function Achievements() {
       <h2 className="text-3xl sm:text-5xl uppercase mb-10 sm:mb-14 max-w-2xl" style={{ ...fontDisplay, color: C.text }}>
         Numbers don't lie
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         <StatCard icon={Trophy} target={8} suffix="+" label="Years Coaching" sub="Strength, hypertrophy & fat-loss programming for real schedules." />
         <StatCard icon={Users} target={250} suffix="+" label="Clients Coached" sub="Transformed through individualized 1-on-1 programming." />
-        <StatCard icon={Award} target={2} label="Certifications" sub="CSCS and NASM-CPT, plus Precision Nutrition Level 1." />
         <StatCard icon={TrendingUp} target={94} suffix="%" label="Goal Completion" sub="Of clients hit their primary 12-week goal on schedule." />
       </div>
     </section>
@@ -1030,7 +1033,6 @@ function ConsultationPage() {
 
   return (
     <section className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
-      <Eyebrow>Free 20-Minute Call</Eyebrow>
       <h1 className="text-4xl sm:text-6xl uppercase mb-4 max-w-2xl leading-[0.95]" style={{ ...fontDisplay, color: C.text }}>
         Book your consultation
       </h1>
