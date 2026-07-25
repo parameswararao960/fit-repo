@@ -26,6 +26,7 @@ import {
   Check,
   ShieldCheck,
 } from "lucide-react";
+import CalendlyBooking from "./CalendlyBooking";
 
 /* =========================================================================
    DESIGN TOKENS & UTILS
@@ -45,6 +46,7 @@ const C = {
   voltDim: "var(--color-volt-dim)",
   voltGlow: "var(--color-volt-glow)",
   ember: "var(--color-ember)",
+  emberGlow: "var(--color-ember-glow)",
 };
 
 const fontDisplay = { fontFamily: "'Anton', sans-serif" };
@@ -210,11 +212,6 @@ function TransformationModal({ item, onClose, goConsult }) {
           <h3 className="text-2xl sm:text-3xl uppercase font-bold mb-3" style={{ ...fontDisplay, color: C.text }}>
             {item.title}
           </h3>
-          {item.metric && (
-            <div className="inline-block px-3 py-1 mb-4 text-xs font-bold uppercase tracking-wider rounded-sm" style={{ background: "rgba(255,90,54,0.15)", color: C.ember, border: `1px solid ${C.ember}`, ...fontMono }}>
-              {item.metric}
-            </div>
-          )}
           <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: C.textDim, ...fontBody }}>
             {item.desc}
           </p>
@@ -292,11 +289,13 @@ function Nav({ page, setPage }) {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <button onClick={() => go("home")} className="flex items-center gap-2.5 cursor-pointer">
-            <div className="p-2 rounded bg-volt/10 text-volt">
-              <Dumbbell size={22} />
-            </div>
+            <img
+              src="/images/logo.jpeg"
+              alt="Team X-Factor Logo"
+              className="w-10 h-10 rounded object-cover"
+            />
             <span className="text-lg sm:text-xl font-extrabold tracking-tight" style={{ ...fontBody, color: C.text }}>
-              ALEX RIVERA <span style={{ color: C.volt, fontWeight: 700 }}>COACHING</span>
+              TEAM <span style={{ color: C.volt, fontWeight: 700 }}>X-FACTOR</span>
             </span>
           </button>
 
@@ -394,21 +393,30 @@ function Hero({ goConsult, onOpenMedia }) {
 
           {/* Left Text */}
           <div className="lg:col-span-7">
-            <h1
+            <h2
               className="text-5xl sm:text-7xl lg:text-8xl leading-[0.96] uppercase mb-6 tracking-tight"
               style={{ ...fontDisplay, color: C.text }}
             >
-              Stop guessing.
+              TRANSFORMING ORDINARY
               <br />
-              <span style={{ color: C.volt }}>Start training.</span>
-            </h1>
+              <span style={{ color: C.volt }}>INTO EXTRAORDINARY</span>
+            </h2>
             <p className="max-w-xl text-base sm:text-lg mb-9 leading-relaxed" style={{ color: C.textDim, ...fontBody }}>
-              Personal strength coaching built around your body, your schedule, and a plan that
-              actually moves the numbers — custom programming, video form reviews, and real client transformations.
+              Science-backed coaching built on the principles of Dietetics, Applied Nutrition, Exercise Biomechanics, and international bodybuilding experience.
             </p>
 
-            <div className="hidden lg:flex flex-col sm:flex-row gap-4 mb-8">
-              <PrimaryButton onClick={goConsult}>Book Consultation</PrimaryButton>
+            <div className="hidden lg:flex flex-col sm:flex-row gap-4 mb-4">
+              <PrimaryButton onClick={goConsult}>
+                <div className="flex flex-col items-center text-center leading-tight">
+                  <span className="font-extrabold uppercase">Book Consultation</span>
+                  <span className="text-[10px] font-normal tracking-wide normal-case mt-0.5 opacity-90" style={{ ...fontMono }}>
+                    limited to only 2 slots per day to ensure quality
+                  </span>
+                </div>
+              </PrimaryButton>
+            </div>
+            <div className="hidden lg:block text-xs mb-8 opacity-80 leading-relaxed max-w-lg" style={{ color: C.textDim, ...fontBody }}>
+              At Team X-Factor, we combine Dietetics, Applied Nutrition, and Exercise Biomechanics to create personalized nutrition and training plans tailored to your body, lifestyle, and goals for sustainable results.
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold" style={{ color: C.textMute, ...fontMono }}>
@@ -480,10 +488,19 @@ function Hero({ goConsult, onOpenMedia }) {
 
             {/* Mobile-only CTA Button directly below the video card */}
             <div className="flex lg:hidden flex-col gap-4 mt-6">
-              <PrimaryButton onClick={goConsult}>Book Consultation</PrimaryButton>
+              <PrimaryButton onClick={goConsult}>
+                <div className="flex flex-col items-center text-center leading-tight">
+                  <span className="font-extrabold uppercase">Book Consultation</span>
+                  <span className="text-[10px] font-normal tracking-wide normal-case mt-0.5 opacity-90" style={{ ...fontMono }}>
+                    limited to only 2 slots per day to ensure quality
+                  </span>
+                </div>
+              </PrimaryButton>
+            </div>
+            <div className="flex lg:hidden text-xs mt-3 opacity-80 leading-relaxed text-center" style={{ color: C.textDim, ...fontBody }}>
+              At Team X-Factor, we combine Dietetics, Applied Nutrition, and Exercise Biomechanics to create personalized nutrition and training plans tailored to your body, lifestyle, and goals for sustainable results.
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -495,7 +512,7 @@ function Hero({ goConsult, onOpenMedia }) {
    ========================================================================= */
 function StatCard({ icon: Icon, target, suffix = "", label, sub }) {
   return (
-    <div className="p-6 sm:p-7 rounded-md border" style={{ background: C.card, borderColor: C.border }}>
+    <div className="p-6 sm:p-7 rounded-md border shadow-volt-glow" style={{ background: C.card, borderColor: C.border }}>
       <div className="w-12 h-12 mb-5 rounded bg-volt/10 flex items-center justify-center">
         <Icon size={24} style={{ color: C.volt }} />
       </div>
@@ -516,7 +533,7 @@ function StatCard({ icon: Icon, target, suffix = "", label, sub }) {
 function Achievements() {
   return (
     <section id="achievements" className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
-      <Eyebrow>Trainer Achievements &amp; Track Record</Eyebrow>
+      <Eyebrow>About Team X-factor achievements and track records</Eyebrow>
       <h2 className="text-3xl sm:text-5xl uppercase mb-10 sm:mb-14 max-w-2xl" style={{ ...fontDisplay, color: C.text }}>
         Numbers don't lie
       </h2>
@@ -684,7 +701,7 @@ function TransformationsShowcase({ onSelectMedia }) {
    ========================================================================= */
 function TestimonialCard({ name, role, result, tag, quote, rating = 5 }) {
   return (
-    <div className="p-6 sm:p-8 flex flex-col h-full border rounded-md" style={{ background: C.card, borderColor: C.border }}>
+    <div className="p-6 sm:p-8 flex flex-col h-full border rounded-md transition-all duration-300 hover:border-volt/30 hover:-translate-y-0.5" style={{ background: C.card, borderColor: C.border }}>
       <div className="flex items-center justify-between mb-4">
         <Quote size={30} style={{ color: C.volt }} />
         <span className="px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider rounded-sm" style={{ background: C.surfaceAlt, color: C.volt, border: `1px solid ${C.border}`, ...fontMono }}>
@@ -793,7 +810,7 @@ function Testimonials() {
     <section id="testimonials" className="max-w-6xl mx-auto px-5 sm:px-8 pb-8 sm:pb-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-6">
         <div>
-          <Eyebrow>Client Testimonials &amp; Success Stories</Eyebrow>
+          <Eyebrow>TRANSFORMATIONS &amp; TESTIMONIALS</Eyebrow>
           <h2 className="text-3xl sm:text-5xl uppercase max-w-2xl" style={{ ...fontDisplay, color: C.text }}>
             What Clients Say
           </h2>
@@ -873,7 +890,7 @@ function CtaBand({ goConsult }) {
     <section className="py-10 sm:py-14 relative overflow-hidden" style={{ background: C.surface, borderTop: `1px solid ${C.border}` }}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
         <h2 className="text-3xl sm:text-5xl uppercase max-w-xl leading-tight" style={{ ...fontDisplay, color: C.text }}>
-          Get ready for your first session.
+          If you're committed to becoming the strongest version of yourself, you're in the right place. Apply now and take the first step toward an extraordinary transformation.
         </h2>
         <PrimaryButton onClick={goConsult}>Book Consultation</PrimaryButton>
       </div>
@@ -890,9 +907,13 @@ function Footer({ goConsult }) {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-10 grid grid-cols-1 sm:grid-cols-3 gap-10">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Dumbbell size={20} style={{ color: C.volt }} />
+            <img
+              src="/images/logo.jpeg"
+              alt="Team X-Force Logo"
+              className="w-8 h-8 rounded object-cover"
+            />
             <span className="text-base font-extrabold" style={{ color: C.text, ...fontBody }}>
-              ALEX RIVERA COACHING
+              TEAM X-FORCE
             </span>
           </div>
           <p className="text-sm leading-relaxed" style={{ color: C.textMute, ...fontBody }}>
@@ -923,9 +944,78 @@ function Footer({ goConsult }) {
         className="text-center text-xs py-6"
         style={{ color: C.textMute, borderTop: `1px solid ${C.border}`, ...fontMono }}
       >
-        © {new Date().getFullYear()} ALEX RIVERA COACHING. ALL RIGHTS RESERVED.
+        © {new Date().getFullYear()} TEAM X-FORCE. ALL RIGHTS RESERVED.
       </div>
     </footer>
+  );
+}
+
+/* =========================================================================
+   WHO WE WORK WITH / WHO WE DON'T WORK WITH
+   ========================================================================= */
+function TargetAudience() {
+  const workWith = [
+    "Serious individuals committed to long-term transformation",
+    "Busy professionals who value expert guidance",
+    "Those who want personalized coaching—not one-size-fits-all plans",
+    "People ready to trust the process and stay accountable",
+  ];
+
+  const dontWorkWith = [
+    "People looking for shortcuts",
+    "Those unwilling to stay consistent",
+    "Anyone expecting results without effort",
+    "Those searching for free advice instead of professional coaching",
+  ];
+
+  return (
+    <section className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12 border-t" style={{ borderColor: C.border }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+
+        {/* Who We Work With */}
+        <div className="p-6 sm:p-8 rounded-md border flex flex-col justify-between shadow-volt-glow transition-all duration-300 hover:border-volt/30" style={{ background: C.card, borderColor: C.border }}>
+          <div>
+            <h3 className="text-2xl sm:text-4xl uppercase mb-6" style={{ ...fontDisplay, color: C.text }}>
+              Who We Work With
+            </h3>
+            <ul className="flex flex-col gap-4">
+              {workWith.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center bg-volt/15 text-volt mt-0.5">
+                    <Check size={12} />
+                  </div>
+                  <span className="text-sm sm:text-base leading-relaxed" style={{ color: C.textDim, ...fontBody }}>
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Who We Don't Work With */}
+        <div className="p-6 sm:p-8 rounded-md border flex flex-col justify-between shadow-ember-glow transition-all duration-300 hover:border-ember/30" style={{ background: C.card, borderColor: C.border }}>
+          <div>
+            <h3 className="text-2xl sm:text-4xl uppercase mb-6" style={{ ...fontDisplay, color: C.text }}>
+              Who We Don't Work With
+            </h3>
+            <ul className="flex flex-col gap-4">
+              {dontWorkWith.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center bg-ember/15 text-ember mt-0.5">
+                    <X size={12} />
+                  </div>
+                  <span className="text-sm sm:text-base leading-relaxed" style={{ color: C.textDim, ...fontBody }}>
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
   );
 }
 
@@ -937,9 +1027,10 @@ function HomePage({ goConsult, onSelectMedia }) {
     <>
       <Hero goConsult={goConsult} onOpenMedia={onSelectMedia} />
       <Achievements />
-      <Credentials />
+      {/* <Credentials /> */}
       <TransformationsShowcase onSelectMedia={onSelectMedia} />
       <Testimonials />
+      <TargetAudience />
       <CtaBand goConsult={goConsult} />
     </>
   );
@@ -971,66 +1062,6 @@ const inputStyle = {
 const inputClass = "w-full px-4 py-3 text-sm outline-none focus:border-volt transition-colors rounded-md";
 
 function ConsultationPage() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    goal: GOALS[0],
-    date: "",
-    time: TIMES[0],
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
-
-  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  const validate = useCallback(() => {
-    const next = {};
-    if (!form.name.trim()) next.name = "Enter your name";
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Enter a valid email";
-    if (!form.phone.trim()) next.phone = "Enter a phone number";
-    if (!form.date) next.date = "Pick a preferred date";
-    return next;
-  }, [form]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const next = validate();
-    setErrors(next);
-    if (Object.keys(next).length === 0) {
-      setSubmitted(true);
-    }
-  };
-
-  if (submitted) {
-    return (
-      <section className="max-w-2xl mx-auto px-5 sm:px-8 py-24 sm:py-32 text-center">
-        <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-volt/10 flex items-center justify-center">
-          <CheckCircle2 size={48} style={{ color: C.volt }} />
-        </div>
-        <h1 className="text-3xl sm:text-4xl uppercase mb-4" style={{ ...fontDisplay, color: C.text }}>
-          Request received
-        </h1>
-        <p className="text-base mb-3" style={{ color: C.textDim, ...fontBody }}>
-          Thanks, {form.name.split(" ")[0]}. Alex will reach out within 24 hours to confirm your
-          slot on {form.date || "your preferred date"}.
-        </p>
-        <p className="text-sm mb-10" style={{ color: C.textMute, ...fontBody }}>
-          Check your inbox at {form.email} — and your spam folder, just in case.
-        </p>
-        <GhostButton
-          onClick={() => {
-            setForm({ name: "", email: "", phone: "", goal: GOALS[0], date: "", time: TIMES[0], message: "" });
-            setSubmitted(false);
-          }}
-        >
-          Book Another Slot
-        </GhostButton>
-      </section>
-    );
-  }
-
   return (
     <section className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
       <h1 className="text-4xl sm:text-6xl uppercase mb-4 max-w-2xl leading-[0.95]" style={{ ...fontDisplay, color: C.text }}>
@@ -1046,7 +1077,7 @@ function ConsultationPage() {
         <div className="lg:col-span-2 flex flex-col gap-8">
           <div className="flex flex-col gap-5">
             {[
-              { icon: Calendar, title: "1. Book a time", desc: "Pick a date and window that fits your schedule below." },
+              { icon: Calendar, title: "1. Pick a slot", desc: "Select a date and time from the booking calendar." },
               { icon: Users, title: "2. We Talk Goals", desc: "Discuss your history, injuries, and what is realistic." },
               { icon: Dumbbell, title: "3. Get a Custom Plan", desc: "Walk away with clear next steps, coaching or not." },
             ].map((s) => (
@@ -1087,69 +1118,10 @@ function ConsultationPage() {
           </div>
         </div>
 
-        {/* Form column */}
-        <form onSubmit={handleSubmit} className="lg:col-span-3 p-6 sm:p-8 flex flex-col gap-5 rounded-md border" style={{ background: C.card, borderColor: C.border }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label="Full Name">
-              <input className={inputClass} style={inputStyle} value={form.name} onChange={update("name")} placeholder="Jamie Lee" />
-              {errors.name && <span className="text-xs" style={{ color: C.ember }}>{errors.name}</span>}
-            </Field>
-            <Field label="Email">
-              <input className={inputClass} style={inputStyle} value={form.email} onChange={update("email")} placeholder="jamie@email.com" />
-              {errors.email && <span className="text-xs" style={{ color: C.ember }}>{errors.email}</span>}
-            </Field>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label="Phone">
-              <input className={inputClass} style={inputStyle} value={form.phone} onChange={update("phone")} placeholder="(555) 123-4567" />
-              {errors.phone && <span className="text-xs" style={{ color: C.ember }}>{errors.phone}</span>}
-            </Field>
-            <Field label="Primary Goal">
-              <select className={inputClass} style={inputStyle} value={form.goal} onChange={update("goal")}>
-                {GOALS.map((g) => (
-                  <option key={g} value={g}>
-                    {g}
-                  </option>
-                ))}
-              </select>
-            </Field>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label="Preferred Date">
-              <input type="date" className={inputClass} style={inputStyle} value={form.date} onChange={update("date")} />
-              {errors.date && <span className="text-xs" style={{ color: C.ember }}>{errors.date}</span>}
-            </Field>
-            <Field label="Preferred Time">
-              <select className={inputClass} style={inputStyle} value={form.time} onChange={update("time")}>
-                {TIMES.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </Field>
-          </div>
-
-          <Field label="Anything else? (optional)">
-            <textarea
-              rows={4}
-              className={inputClass}
-              style={inputStyle}
-              value={form.message}
-              onChange={update("message")}
-              placeholder="Injuries, past training experience, questions for Alex..."
-            />
-          </Field>
-
-          <PrimaryButton type="submit" icon={ChevronRight} full>
-            Request Consultation
-          </PrimaryButton>
-          <p className="text-xs text-center" style={{ color: C.textMute, ...fontBody }}>
-            This is a request, not a confirmed booking — Alex will follow up to lock in your slot.
-          </p>
-        </form>
+        {/* Calendly booking column */}
+        <div className="lg:col-span-3 rounded-md border overflow-hidden p-2 w-full max-w-full" style={{ background: C.card, borderColor: C.border }}>
+          <CalendlyBooking />
+        </div>
       </div>
     </section>
   );

@@ -14,10 +14,11 @@
   --color-text: #F7F7F6;
   --color-text-dim: #C0C3C7;
   --color-text-mute: #8A8D93;
-  --color-volt: #28fc59;
+  --color-volt: #ebf62c;
   --color-volt-dim: #9fd41f;
-  --color-volt-glow: rgba(198, 255, 61, 0.25);
+  --color-volt-glow: rgba(235, 246, 44, 0.1);
   --color-ember: #FF5A36;
+  --color-ember-glow: rgba(255, 90, 54, 0.1);
 }
 
 html {

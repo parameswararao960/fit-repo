@@ -21,7 +21,14 @@ export default {
           dim: 'var(--color-volt-dim)',
           glow: 'var(--color-volt-glow)',
         },
-        ember: 'var(--color-ember)',
+        ember: {
+          DEFAULT: 'var(--color-ember)',
+          glow: 'var(--color-ember-glow)',
+        },
+      },
+      boxShadow: {
+        'volt-glow': '0 0 12px var(--color-volt-glow)',
+        'ember-glow': '0 0 12px var(--color-ember-glow)',
       },
       fontFamily: {
         display: ['Anton', 'sans-serif'],
