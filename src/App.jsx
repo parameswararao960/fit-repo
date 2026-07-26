@@ -25,6 +25,8 @@ import {
   ArrowUp,
   Check,
   ShieldCheck,
+  Plus,
+  Minus,
 } from "lucide-react";
 import CalendlyBooking from "./CalendlyBooking";
 
@@ -63,31 +65,71 @@ const TRANSFORMATIONS_ITEMS = [
     id: "t1",
     type: "image",
     category: "recomp",
-    title: "Marcus T. — 16-Week Body Recomposition",
+    title: "Transformation 1",
     tag: "FAT LOSS & MUSCLE GAIN",
-    thumbnail: "/images/transformation.png",
-    metric: "-32 LBS FAT · +12 LBS MUSCLE",
-    desc: "Marcus dropped 32 lbs of body fat while increasing his total squat and deadlift numbers through progressive tension overload.",
+    thumbnail: "/images/transformation1.jpg",
+    metric: "12-WEEK PHYSIQUE RECOMP",
+    desc: "Achieved significant body recomposition with structured strength training and progressive overload.",
+  },
+  {
+    id: "t2",
+    type: "image",
+    category: "strength",
+    title: "Transformation 2",
+    tag: "STRENGTH & PERFORMANCE",
+    thumbnail: "/images/transformation2.png",
+    metric: "16-WEEK BULK & POWERBUILD",
+    desc: "Increased lifting total while gaining solid muscle mass and improving relative lifting biomechanics.",
+  },
+  {
+    id: "t3",
+    type: "image",
+    category: "recomp",
+    title: "Transformation 3",
+    tag: "FAT LOSS & MOBILITY",
+    thumbnail: "/images/transformation3.png",
+    metric: "14-WEEK CARDIOVASCULAR SHIFT",
+    desc: "Drastically reduced body fat percentage while improving cardiovascular base and mobility.",
+  },
+  {
+    id: "t4",
+    type: "image",
+    category: "hypertrophy",
+    title: "Transformation 4",
+    tag: "HYPERTROPHY & DEFINE",
+    thumbnail: "/images/transformation4.png",
+    metric: "12-WEEK SHRED PROGRAM",
+    desc: "Targeted fat loss while preserving lean skeletal muscle tissue and highlighting muscle definition.",
   },
   {
     id: "t5",
     type: "image",
     category: "strength",
-    title: "David K. — Advanced Strength Breakthrough",
-    tag: "BENCH & SQUAT PR",
-    thumbnail: "/images/coach_hero.png",
-    metric: "+25 LB BENCH · +35 LB SQUAT",
-    desc: "David broke through a 2-year lifting plateau after biomechanic bracing adjustments.",
+    title: "Transformation 5",
+    tag: "ATHLETIC CONDITIONING",
+    thumbnail: "/images/transformation5.png",
+    metric: "20-WEEK ELITE PERFORMANCE RECOMP",
+    desc: "Enhanced overall athletic power output, core alignment, and metabolic conditioning.",
   },
   {
     id: "t6",
     type: "image",
-    category: "hypertrophy",
-    title: "Sarah L. — Mobility & Core Alignment Recomp",
-    tag: "POSTURE & CORE",
-    thumbnail: "/images/video_poster.png",
-    metric: "POSTURE CORRECTION & MOBILITY",
-    desc: "Sarah corrected pelvic tilt and shoulder tightness while building functional core stability.",
+    category: "strength",
+    title: "Transformation 6",
+    tag: "ATHLETIC CONDITIONING",
+    thumbnail: "/images/transformation6.jpeg",
+    metric: "20-WEEK ELITE PERFORMANCE RECOMP",
+    desc: "Enhanced overall athletic power output, core alignment, and metabolic conditioning.",
+  },
+  {
+    id: "t7",
+    type: "image",
+    category: "strength",
+    title: "Transformation 7",
+    tag: "ATHLETIC CONDITIONING",
+    thumbnail: "/images/transformation7.jpeg",
+    metric: "20-WEEK ELITE PERFORMANCE RECOMP",
+    desc: "Enhanced overall athletic power output, core alignment, and metabolic conditioning.",
   },
 ];
 
@@ -421,11 +463,11 @@ function Hero({ goConsult, onOpenMedia }) {
 
             <div className="flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold" style={{ color: C.textMute, ...fontMono }}>
               <span className="flex items-center gap-2">
-                <ShieldCheck size={16} style={{ color: C.volt }} /> 250+ TRANSFORMATIONS
+                <ShieldCheck size={16} style={{ color: C.volt }} /> 1000+ TRANSFORMATIONS
               </span>
               <span>·</span>
               <span className="flex items-center gap-2">
-                <Star size={16} style={{ color: C.volt }} /> 4.9/5 AVERAGE RATING
+                <Star size={16} style={{ color: C.volt }} /> 4.3/5 AVERAGE RATING
               </span>
             </div>
           </div>
@@ -533,14 +575,14 @@ function StatCard({ icon: Icon, target, suffix = "", label, sub }) {
 function Achievements() {
   return (
     <section id="achievements" className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
-      <Eyebrow>About Team X-factor achievements and track records</Eyebrow>
+      <Eyebrow>Team X-factor achievements and track records</Eyebrow>
       <h2 className="text-3xl sm:text-5xl uppercase mb-10 sm:mb-14 max-w-2xl" style={{ ...fontDisplay, color: C.text }}>
         Numbers don't lie
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        <StatCard icon={Trophy} target={8} suffix="+" label="Years Coaching" sub="Strength, hypertrophy & fat-loss programming for real schedules." />
-        <StatCard icon={Users} target={250} suffix="+" label="Clients Coached" sub="Transformed through individualized 1-on-1 programming." />
-        <StatCard icon={TrendingUp} target={94} suffix="%" label="Goal Completion" sub="Of clients hit their primary 12-week goal on schedule." />
+        <StatCard icon={Trophy} target={8} suffix="+" label="Years Coaching" sub="Helping busy professionals build stronger, leaner physiques through science-backed coaching." />
+        <StatCard icon={Users} target={1000} suffix="+" label="Clients Coached" sub="Personalized coaching tailored to every individual's body, lifestyle, and goals." />
+        <StatCard icon={TrendingUp} target={94} suffix="%" label="Goal Completion" sub="Every plan is engineered to produce lasting transformations." />
       </div>
     </section>
   );
@@ -573,15 +615,23 @@ function Credentials() {
    EXCLUSIVE CLIENT TRANSFORMATIONS SHOWCASE
    ========================================================================= */
 function TransformationsShowcase({ onSelectMedia }) {
-  const [filter, setFilter] = useState("all");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const total = TRANSFORMATIONS_ITEMS.length;
 
-  const filteredItems = TRANSFORMATIONS_ITEMS.filter((item) => {
-    if (filter === "all") return true;
-    if (filter === "recomp") return item.category === "recomp";
-    if (filter === "strength") return item.category === "strength";
-    if (filter === "hypertrophy") return item.category === "hypertrophy";
-    return true;
-  });
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeIndex]);
 
   return (
     <section id="transformations" className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
@@ -593,104 +643,76 @@ function TransformationsShowcase({ onSelectMedia }) {
           </h2>
         </div>
         <p className="max-w-md text-sm sm:text-base leading-relaxed" style={{ color: C.textDim, ...fontBody }}>
-          See real body recomp results, fat-loss milestones, and strength PR transformations from 1-on-1 coaching.
+          Every transformation shown is achieved through personalized coaching, training, and nutrition. Results vary from person to person depending on commitment and lifestyle.
         </p>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex flex-wrap gap-2 sm:gap-3 mb-10 pb-4 border-b" style={{ borderColor: C.border }}>
-        {[
-          { id: "all", label: "All Transformations", icon: ImageIcon },
-        ].map((tab) => {
-          const Icon = tab.icon;
-          const active = filter === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setFilter(tab.id)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded-md cursor-pointer"
-              style={{
-                background: active ? C.volt : C.surface,
-                color: active ? "#0c0d0e" : C.textDim,
-                border: `1px solid ${active ? C.volt : C.border}`,
-                ...fontMono,
-              }}
-            >
-              <Icon size={16} />
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Transformations Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredItems.map((item) => (
+      {/* Carousel Wrapper */}
+      <div className="relative max-w-4xl mx-auto">
+        {/* Carousel Track */}
+        <div className="overflow-hidden rounded-md border" style={{ borderColor: C.border, background: C.card }}>
           <div
-            key={item.id}
-            onClick={() => onSelectMedia(item)}
-            className="group cursor-pointer flex flex-col h-full border rounded-md overflow-hidden"
-            style={{ background: C.card, borderColor: C.border }}
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
           >
-            {/* Thumbnail Box */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-black">
-              <img
-                src={item.thumbnail}
-                alt={item.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+            {TRANSFORMATIONS_ITEMS.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => onSelectMedia(item)}
+                className="w-full flex-shrink-0 cursor-pointer overflow-hidden bg-black aspect-[4/3] sm:aspect-[14/10] relative group"
+              >
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="w-full h-full object-contain"
+                />
 
-              {/* Tag Badge */}
-              <div className="absolute top-3 left-3 flex items-center gap-2">
-                <span
-                  className="px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider rounded-sm"
-                  style={{ background: C.surfaceAlt, color: C.volt, border: `1px solid ${C.border}`, ...fontMono }}
-                >
-                  {item.tag}
-                </span>
-              </div>
-
-              {/* Photo Indicator */}
-              <div className="absolute top-3 right-3">
-                <span
-                  className="px-2 py-0.5 text-[11px] font-bold tracking-wider flex items-center gap-1 rounded-sm"
-                  style={{ background: "rgba(0,0,0,0.8)", color: C.text, ...fontMono }}
-                >
-                  <ImageIcon size={12} style={{ color: C.volt }} /> TRANSFORMATION
-                </span>
-              </div>
-
-              {/* Expand Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className="w-13 h-13 rounded-full flex items-center justify-center"
-                  style={{ background: "rgba(255,255,255,0.9)", color: "#0c0d0e" }}
-                >
-                  <Maximize2 size={20} className="text-black" />
+                {/* Click to Zoom Badge */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
+                    style={{ background: "rgba(255,255,255,0.9)", color: "#0c0d0e" }}
+                  >
+                    <Maximize2 size={24} className="text-black" />
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-5 flex flex-col flex-1 justify-between">
-              <div>
-                <h3 className="text-lg font-bold uppercase mb-2 leading-snug" style={{ ...fontBody, color: C.text }}>
-                  {item.title}
-                </h3>
-                <p className="text-xs sm:text-sm line-clamp-2 leading-relaxed mb-4" style={{ color: C.textMute, ...fontBody }}>
-                  {item.desc}
-                </p>
-              </div>
-
-              {item.metric && (
-                <div className="pt-3 border-t text-xs font-bold uppercase tracking-wider" style={{ borderColor: C.border, color: C.ember, ...fontMono }}>
-                  {item.metric}
-                </div>
-              )}
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Carousel Navigation Controls */}
+        <div className="flex items-center justify-between mt-6">
+          <button
+            onClick={handlePrev}
+            className="p-2.5 rounded-md border border-volt/20 bg-theme-surfaceAlt text-white hover:border-volt hover:text-volt cursor-pointer transition-colors"
+            style={{ borderColor: C.border }}
+            aria-label="Previous transformation"
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <div className="flex gap-2">
+            {TRANSFORMATIONS_ITEMS.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className={`h-2 rounded-full cursor-pointer transition-all duration-300 ${activeIndex === idx ? "bg-volt w-6" : "bg-theme-border w-2"}`}
+                style={{ background: activeIndex === idx ? C.volt : C.border }}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={handleNext}
+            className="p-2.5 rounded-md border border-volt/20 bg-theme-surfaceAlt text-white hover:border-volt hover:text-volt cursor-pointer transition-colors"
+            style={{ borderColor: C.border }}
+            aria-label="Next transformation"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -738,58 +760,26 @@ function TestimonialCard({ name, role, result, tag, quote, rating = 5 }) {
 function Testimonials() {
   const [activeIdx, setActiveIdx] = useState(0);
 
-  const testimonialsData = [
+  const videoTestimonials = [
     {
-      name: "Jordan M.",
-      role: "Corporate Executive · Austin, TX",
-      tag: "Body Recomposition",
-      result: "-32 LBS · 16 WEEKS",
-      quote:
-        "Alex didn't just hand me a generic spreadsheet. Every four weeks the plan evolved as my strength and body composition changed. First coach who actually paid attention to my busy schedule, work travel, and joint health.",
+      id: "v1",
+      src: "/videos/VN20260726_111246.mp4",
+      title: "Client Video Review 1",
     },
     {
-      name: "Priya S.",
-      role: "Software Engineer · Remote",
-      tag: "Heavy Strength PR",
-      result: "+80 LB DEADLIFT PR",
-      quote:
-        "I came in wanting to get stronger without wrecking my lower back or knees. Alex's programming was smart, patient, and methodical. Hit an 80 lb deadlift PR completely pain-free.",
+      id: "v2",
+      src: "/videos/VN20260726_111645.mp4",
+      title: "Client Video Review 2",
     },
     {
-      name: "Marcus T.",
-      role: "Endurance Athlete · Austin, TX",
-      tag: "Hybrid Athletics",
-      result: "SUB-4 MARATHON & PR",
-      quote:
-        "Combining heavy strength work alongside marathon training sounded risky until I worked with Alex. Faster marathon finish time, zero injuries, and gained noticeable leg power.",
+      id: "v3",
+      src: "/videos/VN20260726_111127.mp4",
+      title: "Client Video Review 3",
     },
-    {
-      name: "Elena R.",
-      role: "Design Lead · Remote",
-      tag: "Physique Transformation",
-      result: "-22 LBS · 12 WEEKS",
-      quote:
-        "The nutrition guidance was a complete game changer — no restrictive starvation diets, just sustainable macro tracking and strength progression that built confidence I've never felt before.",
-    },
-    {
-      name: "David K.",
-      role: "Former Athlete · Austin, TX",
-      tag: "Advanced Strength",
-      result: "+25 LB BENCH & SQUAT",
-      quote:
-        "After hitting a 2-year plateau on my main lifts, Alex analyzed my bar path, corrected my bracing, and broke through my plateaus within the first month of coaching.",
-    },
-    {
-      name: "Sarah L.",
-      role: "Physical Therapist · Austin, TX",
-      tag: "Injury Prevention",
-      result: "PAIN-FREE MOBILITY",
-      quote:
-        "As a healthcare professional, I'm extremely picky about strength coaches. Alex's understanding of human biomechanics, mobility, and progressive overload is top tier.",
-    },
+
   ];
 
-  const total = testimonialsData.length;
+  const total = videoTestimonials.length;
 
   const handlePrev = () => {
     setActiveIdx((prev) => (prev === 0 ? total - 1 : prev - 1));
@@ -799,18 +789,11 @@ function Testimonials() {
     setActiveIdx((prev) => (prev === total - 1 ? 0 : prev + 1));
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [activeIdx, total]);
-
   return (
     <section id="testimonials" className="max-w-6xl mx-auto px-5 sm:px-8 pb-8 sm:pb-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-6">
         <div>
-          <Eyebrow>TRANSFORMATIONS &amp; TESTIMONIALS</Eyebrow>
+          <Eyebrow>TESTIMONIALS</Eyebrow>
           <h2 className="text-3xl sm:text-5xl uppercase max-w-2xl" style={{ ...fontDisplay, color: C.text }}>
             What Clients Say
           </h2>
@@ -822,8 +805,8 @@ function Testimonials() {
             ))}
           </div>
           <div>
-            <div className="text-sm font-extrabold text-white" style={{ ...fontBody }}>4.9 out of 5 Stars</div>
-            <div className="text-xs text-gray-400" style={{ ...fontMono }}>250+ Verified Clients</div>
+            <div className="text-sm font-extrabold text-white" style={{ ...fontBody }}>4.3 out of 5 Stars</div>
+            <div className="text-xs text-gray-400" style={{ ...fontMono }}>1000+ Verified Clients</div>
           </div>
         </div>
       </div>
@@ -835,9 +818,16 @@ function Testimonials() {
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${activeIdx * 100}%)` }}
           >
-            {testimonialsData.map((t) => (
-              <div key={t.name} className="w-full flex-shrink-0">
-                <TestimonialCard {...t} />
+            {videoTestimonials.map((v) => (
+              <div key={v.id} className="w-full flex-shrink-0 px-2">
+                <div className="w-full max-w-sm mx-auto aspect-[9/16] max-h-[550px] rounded-md overflow-hidden bg-black border shadow-volt-glow" style={{ borderColor: C.border }}>
+                  <video
+                    src={v.src}
+                    controls
+                    className="w-full h-full object-cover"
+                    preload="metadata"
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -849,14 +839,14 @@ function Testimonials() {
             onClick={handlePrev}
             className="p-2.5 rounded-md border border-volt/20 bg-theme-surfaceAlt text-white hover:border-volt hover:text-volt cursor-pointer transition-colors"
             style={{ borderColor: C.border }}
-            aria-label="Previous testimonial"
+            aria-label="Previous video"
           >
             <ChevronLeft size={20} />
           </button>
 
           {/* Indicators Dots */}
           <div className="flex gap-2">
-            {testimonialsData.map((_, idx) => (
+            {videoTestimonials.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIdx(idx)}
@@ -872,7 +862,7 @@ function Testimonials() {
             onClick={handleNext}
             className="p-2.5 rounded-md border border-volt/20 bg-theme-surfaceAlt text-white hover:border-volt hover:text-volt cursor-pointer transition-colors"
             style={{ borderColor: C.border }}
-            aria-label="Next testimonial"
+            aria-label="Next video"
           >
             <ChevronRight size={20} />
           </button>
@@ -889,9 +879,9 @@ function CtaBand({ goConsult }) {
   return (
     <section className="py-10 sm:py-14 relative overflow-hidden" style={{ background: C.surface, borderTop: `1px solid ${C.border}` }}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
-        <h2 className="text-3xl sm:text-5xl uppercase max-w-xl leading-tight" style={{ ...fontDisplay, color: C.text }}>
+        <p className="text-base sm:text-base max-w-xl leading-tight" style={{ ...fontBody, color: C.text }}>
           If you're committed to becoming the strongest version of yourself, you're in the right place. Apply now and take the first step toward an extraordinary transformation.
-        </h2>
+        </p>
         <PrimaryButton onClick={goConsult}>Book Consultation</PrimaryButton>
       </div>
     </section>
@@ -917,7 +907,7 @@ function Footer({ goConsult }) {
             </span>
           </div>
           <p className="text-sm leading-relaxed" style={{ color: C.textMute, ...fontBody }}>
-            1-on-1 strength &amp; performance coaching, in-person and online. Tailored programming for real body transformations.
+            Powered by the science of Applied Nutrition, Dietetics, and Exercise Biomechanics. Refined through international bodybuilding experience. Designed for extraordinary results.
           </p>
         </div>
         <div>
@@ -926,16 +916,16 @@ function Footer({ goConsult }) {
           </div>
           <div className="flex flex-col gap-3 text-sm" style={{ color: C.textDim, ...fontBody }}>
             <span className="flex items-center gap-2">
-              <Mail size={16} style={{ color: C.volt }} /> coach@alexrivera.fit
+              <Mail size={16} style={{ color: C.volt }} /> teamxfactor7799@gmail.com
             </span>
             <span className="flex items-center gap-2">
-              <Phone size={16} style={{ color: C.volt }} /> (555) 010-2938
+              <Phone size={16} style={{ color: C.volt }} /> +91 6304421193
             </span>
             <span className="flex items-center gap-2">
-              <MapPin size={16} style={{ color: C.volt }} /> Austin, TX · In-person &amp; online
+              <MapPin size={16} style={{ color: C.volt }} /> Hyderabad & Guntur
             </span>
             <span className="flex items-center gap-2">
-              <Instagram size={16} style={{ color: C.volt }} /> @alexrivera.coaching
+              <Instagram size={16} style={{ color: C.volt }} /> @flexwithroshan & @teamx_factor
             </span>
           </div>
         </div>
@@ -1020,6 +1010,94 @@ function TargetAudience() {
 }
 
 /* =========================================================================
+   FAQ SECTION
+   ========================================================================= */
+const FAQ_ITEMS = [
+  {
+    q: "Is this coaching right for me?",
+    a: "Yes—if you're serious about building muscle, losing fat, and improving your physique with a structured, personalized plan. Whether you're a beginner or experienced lifter, your coaching is tailored to your goals and lifestyle."
+  },
+  {
+    q: "I'm busy with work and family. Will this fit my schedule?",
+    a: "Absolutely. Your training and nutrition plan is built around your work, travel, family commitments, and available training time, making it realistic and sustainable."
+  },
+  {
+    q: "What kind of results can I expect?",
+    a: "Results vary based on your starting point and consistency, but with adherence to the plan, you can expect measurable improvements in strength, body composition, and overall fitness over the coming weeks and months."
+  },
+  {
+    q: "Will I receive a customized training and nutrition plan?",
+    a: "Yes. Every program is built specifically for you based on your goals, body, experience level, lifestyle, food preferences, and available equipment. Nothing is generic."
+  },
+  {
+    q: "How much support will I receive?",
+    a: "You'll receive regular check-ins, progress reviews, program adjustments, technique feedback, and direct coach support to ensure you're consistently moving toward your goals."
+  },
+  {
+    q: "Can I train from home?",
+    a: "Yes. Whether you train at a fully equipped gym or at home with limited equipment, your program will be designed to maximize results with what you have available."
+  },
+  {
+    q: "What makes Team X-Factor different from other online coaches?",
+    a: "We don't believe in copy-paste programs. Every decision—from training and nutrition to recovery and progression—is personalized using evidence-based methods to help you achieve lasting results."
+  },
+  {
+    q: "How do I get started?",
+    a: "Book your consultation, we'll discuss your goals, current situation, and expectations. If we're the right fit, we'll create a personalized roadmap and start building your transformation together."
+  }
+];
+
+function Faq() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggle = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  return (
+    <section className="max-w-4xl mx-auto px-5 sm:px-8 py-10 sm:py-16">
+      <h2 className="text-3xl sm:text-5xl uppercase mb-10 text-left" style={{ ...fontDisplay, color: C.text }}>
+        Got Questions?
+      </h2>
+      <div className="flex flex-col gap-4">
+        {FAQ_ITEMS.map((item, idx) => {
+          const isOpen = activeIndex === idx;
+          return (
+            <div
+              key={idx}
+              className="rounded-md border overflow-hidden transition-all duration-300 shadow-volt-glow"
+              style={{ background: C.card, borderColor: C.border }}
+            >
+              <button
+                onClick={() => toggle(idx)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left cursor-pointer transition-colors hover:bg-theme-surfaceAlt"
+                aria-expanded={isOpen}
+              >
+                <span className="text-base sm:text-lg font-bold text-white flex items-start gap-3" style={{ ...fontBody }}>
+                  {item.q}
+                </span>
+                <span className="ml-4 flex-shrink-0 text-volt">
+                  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                </span>
+              </button>
+              <div
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 opacity-100 border-t" : "max-h-0 opacity-0"
+                  }`}
+                style={{ borderColor: C.border }}
+              >
+                <p className="p-6 text-sm sm:text-base leading-relaxed" style={{ color: C.textDim, ...fontBody }}>
+                  {item.a}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* =========================================================================
    HOME PAGE
    ========================================================================= */
 function HomePage({ goConsult, onSelectMedia }) {
@@ -1031,6 +1109,7 @@ function HomePage({ goConsult, onSelectMedia }) {
       <TransformationsShowcase onSelectMedia={onSelectMedia} />
       <Testimonials />
       <TargetAudience />
+      <Faq />
       <CtaBand goConsult={goConsult} />
     </>
   );
@@ -1068,8 +1147,7 @@ function ConsultationPage() {
         Book your consultation
       </h1>
       <p className="text-base sm:text-lg max-w-xl mb-12" style={{ color: C.textDim, ...fontBody }}>
-        No pressure, no pitch. Just a real conversation about where you are, where you want to be,
-        and whether coaching together makes sense.
+        Your transformation starts with a strategy—not guesswork. Book your consultation and receive a personalized roadmap built specifically for your body, goals, and lifestyle.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
@@ -1100,7 +1178,7 @@ function ConsultationPage() {
             ))}
           </div>
 
-          <div className="p-6 rounded-md border" style={{ background: C.card, borderColor: C.border }}>
+          {/* <div className="p-6 rounded-md border" style={{ background: C.card, borderColor: C.border }}>
             <div className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: C.textMute, ...fontMono }}>
               Direct Contact
             </div>
@@ -1115,7 +1193,7 @@ function ConsultationPage() {
                 <Clock size={16} style={{ color: C.volt }} /> Replies within 24 hours
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Calendly booking column */}

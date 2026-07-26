@@ -2,7 +2,7 @@ import { InlineWidget } from "react-calendly";
 import { AlertCircle } from "lucide-react";
 
 export default function CalendlyBooking() {
-    const url = "";
+    const url = "https://calendly.com/teamxfactor7799";
 
     // Simple validation for Calendly URL structure
     const isValidUrl =
