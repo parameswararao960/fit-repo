@@ -475,9 +475,8 @@ function Hero({ goConsult, onOpenMedia }) {
           {/* Right Media Card */}
           <div className="lg:col-span-5">
             <div
-              className="relative cursor-pointer overflow-hidden rounded-md border"
+              className="relative overflow-hidden rounded-md border"
               style={{ background: C.card, borderColor: C.border }}
-              onClick={() => onOpenMedia(TRANSFORMATIONS_ITEMS[0])}
             >
               <div className="relative aspect-[4/3] sm:aspect-[14/10] overflow-hidden bg-black">
                 <img
@@ -486,16 +485,6 @@ function Hero({ goConsult, onOpenMedia }) {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-                {/* Zoom Button Badge */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center shadow-2xl"
-                    style={{ background: C.volt, color: "#0c0d0e" }}
-                  >
-                    <Maximize2 size={24} className="text-black" />
-                  </div>
-                </div>
 
                 {/* Top Badge */}
                 <div className="absolute top-4 left-4 flex items-center gap-2">
@@ -513,17 +502,14 @@ function Hero({ goConsult, onOpenMedia }) {
                     Marcus T. (-32 LBS Fat · +12 LBS Muscle)
                   </div>
                   <div className="text-sm font-bold text-white leading-snug" style={{ ...fontBody }}>
-                    Click to view full 16-week strength &amp; physique recomp details
+                    Verified 16-week strength &amp; physique recomp details
                   </div>
                 </div>
               </div>
 
               <div className="p-4 flex items-center justify-between border-t" style={{ borderColor: C.border, background: C.surfaceAlt }}>
-                <span className="text-xs font-bold uppercase" style={{ color: C.textDim, ...fontMono }}>
+                <span className="text-xs font-bold uppercase text-center w-full" style={{ color: C.textDim, ...fontMono }}>
                   Verified 16-Week Recomp
-                </span>
-                <span className="text-xs font-extrabold uppercase tracking-wide flex items-center gap-1" style={{ color: C.volt, ...fontMono }}>
-                  View Details <ArrowRight size={14} />
                 </span>
               </div>
             </div>
@@ -615,24 +601,6 @@ function Credentials() {
    EXCLUSIVE CLIENT TRANSFORMATIONS SHOWCASE
    ========================================================================= */
 function TransformationsShowcase({ onSelectMedia }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const total = TRANSFORMATIONS_ITEMS.length;
-
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [activeIndex]);
-
   return (
     <section id="transformations" className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-6">
@@ -647,72 +615,21 @@ function TransformationsShowcase({ onSelectMedia }) {
         </p>
       </div>
 
-      {/* Carousel Wrapper */}
-      <div className="relative max-w-4xl mx-auto">
-        {/* Carousel Track */}
-        <div className="overflow-hidden rounded-md border" style={{ borderColor: C.border, background: C.card }}>
+      {/* Transformations Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {TRANSFORMATIONS_ITEMS.map((item) => (
           <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            key={item.id}
+            className="overflow-hidden rounded-md border bg-black aspect-[4/3] sm:aspect-[14/10] shadow-volt-glow"
+            style={{ borderColor: C.border, height: '500px', width: '100%' }}
           >
-            {TRANSFORMATIONS_ITEMS.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => onSelectMedia(item)}
-                className="w-full flex-shrink-0 cursor-pointer overflow-hidden bg-black aspect-[4/3] sm:aspect-[14/10] relative group"
-              >
-                <img
-                  src={item.thumbnail}
-                  alt={item.title}
-                  className="w-full h-full object-contain"
-                />
-
-                {/* Click to Zoom Badge */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
-                    style={{ background: "rgba(255,255,255,0.9)", color: "#0c0d0e" }}
-                  >
-                    <Maximize2 size={24} className="text-black" />
-                  </div>
-                </div>
-              </div>
-            ))}
+            <img
+              src={item.thumbnail}
+              alt={item.title}
+              className="w-full h-full object-contain"
+            />
           </div>
-        </div>
-
-        {/* Carousel Navigation Controls */}
-        <div className="flex items-center justify-between mt-6">
-          <button
-            onClick={handlePrev}
-            className="p-2.5 rounded-md border border-volt/20 bg-theme-surfaceAlt text-white hover:border-volt hover:text-volt cursor-pointer transition-colors"
-            style={{ borderColor: C.border }}
-            aria-label="Previous transformation"
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          <div className="flex gap-2">
-            {TRANSFORMATIONS_ITEMS.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveIndex(idx)}
-                className={`h-2 rounded-full cursor-pointer transition-all duration-300 ${activeIndex === idx ? "bg-volt w-6" : "bg-theme-border w-2"}`}
-                style={{ background: activeIndex === idx ? C.volt : C.border }}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={handleNext}
-            className="p-2.5 rounded-md border border-volt/20 bg-theme-surfaceAlt text-white hover:border-volt hover:text-volt cursor-pointer transition-colors"
-            style={{ borderColor: C.border }}
-            aria-label="Next transformation"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
+        ))}
       </div>
     </section>
   );
@@ -820,11 +737,11 @@ function Testimonials() {
           >
             {videoTestimonials.map((v) => (
               <div key={v.id} className="w-full flex-shrink-0 px-2">
-                <div className="w-full max-w-sm mx-auto aspect-[9/16] max-h-[550px] rounded-md overflow-hidden bg-black border shadow-volt-glow" style={{ borderColor: C.border }}>
+                <div className="w-full max-w-sm mx-auto aspect-[9/16] max-h-[680px] rounded-md overflow-hidden bg-black border shadow-volt-glow" style={{ borderColor: C.border }}>
                   <video
                     src={v.src}
                     controls
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     preload="metadata"
                   />
                 </div>
@@ -925,7 +842,7 @@ function Footer({ goConsult }) {
               <MapPin size={16} style={{ color: C.volt }} /> Hyderabad & Guntur
             </span>
             <span className="flex items-center gap-2">
-              <Instagram size={16} style={{ color: C.volt }} /> @flexwithroshan & @teamx_factor
+              <Instagram size={16} style={{ color: C.volt }} /> @flexwithroshan & @teamxfactor__
             </span>
           </div>
         </div>
