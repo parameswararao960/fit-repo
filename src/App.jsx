@@ -281,7 +281,7 @@ function TransformationModal({ item, onClose, goConsult }) {
 /* =========================================================================
    NAVBAR (ICON ONLY TOGGLE BUTTON)
    ========================================================================= */
-function Nav({ page, setPage }) {
+function Nav({ page, setPage, goConsult }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -330,15 +330,20 @@ function Nav({ page, setPage }) {
       >
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
-          <button onClick={() => go("home")} className="flex items-center gap-2.5 cursor-pointer">
+          <button onClick={() => go("home")} className="flex items-center gap-2.5 cursor-pointer text-left">
             <img
               src="/images/logo.jpeg"
               alt="Team X-Factor Logo"
               className="w-10 h-10 rounded object-cover"
             />
-            <span className="text-lg sm:text-xl font-extrabold tracking-tight" style={{ ...fontBody, color: C.text }}>
-              TEAM <span style={{ color: C.volt, fontWeight: 700 }}>X-FACTOR</span>
-            </span>
+            <div className="flex flex-col text-left justify-center">
+              <span className="text-lg sm:text-xl font-extrabold tracking-tight leading-none" style={{ ...fontBody, color: C.text }}>
+                TEAM <span style={{ color: C.volt, fontWeight: 700 }}>X-FACTOR</span>
+              </span>
+              <span className="text-[10px] sm:text-xs font-semibold tracking-wider leading-tight -mt-0.5 opacity-90 ml-0.5" style={{ color: C.textDim, ...fontMono }}>
+                by flexwithroshan
+              </span>
+            </div>
           </button>
 
           {/* Menu Toggle Button (Icon Only - No text labels) */}
@@ -413,7 +418,7 @@ function Nav({ page, setPage }) {
 
             {/* Side Drawer Footer */}
             <div className="pt-6 border-t border-[#2e3238] flex flex-col gap-3">
-              <PrimaryButton onClick={() => go("consult")} full>
+              <PrimaryButton onClick={() => { setOpen(false); goConsult(); }} full>
                 Book Consultation
               </PrimaryButton>
             </div>
@@ -478,39 +483,14 @@ function Hero({ goConsult, onOpenMedia }) {
               className="relative overflow-hidden rounded-md border"
               style={{ background: C.card, borderColor: C.border }}
             >
-              <div className="relative aspect-[4/3] sm:aspect-[14/10] overflow-hidden bg-black">
-                <img
-                  src="/images/transformation.png"
-                  alt="Client Transformation Marcus T."
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-                {/* Top Badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <span
-                    className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow rounded-sm"
-                    style={{ background: C.ember, color: C.text, ...fontMono }}
-                  >
-                    SPOTLIGHT TRANSFORMATION
-                  </span>
-                </div>
-
-                {/* Bottom Overlay Text */}
-                <div className="absolute bottom-4 left-4 right-4 text-left">
-                  <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: C.volt, ...fontMono }}>
-                    Marcus T. (-32 LBS Fat · +12 LBS Muscle)
-                  </div>
-                  <div className="text-sm font-bold text-white leading-snug" style={{ ...fontBody }}>
-                    Verified 16-week strength &amp; physique recomp details
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 flex items-center justify-between border-t" style={{ borderColor: C.border, background: C.surfaceAlt }}>
-                <span className="text-xs font-bold uppercase text-center w-full" style={{ color: C.textDim, ...fontMono }}>
-                  Verified 16-Week Recomp
-                </span>
+              <div className="relative aspect-[9/13] max-h-[500px] w-full overflow-hidden bg-black mx-auto">
+                <iframe
+                  src="https://www.youtube.com/embed/bmpcvCL_qDo?controls=0&rel=0&modestbranding=1&loop=1&playlist=bmpcvCL_qDo"
+                  title="Transformation Video"
+                  className="w-full h-[116%] border-0 origin-top"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
               </div>
             </div>
 
@@ -1160,8 +1140,7 @@ export default function App() {
   const [activeMedia, setActiveMedia] = useState(null);
 
   const goConsult = () => {
-    setPage("consult");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.open("https://calendly.com/teamxfactor7799", "_blank", "noopener,noreferrer");
   };
 
   const scrollTop = () => {
@@ -1172,7 +1151,7 @@ export default function App() {
     <div className="min-h-screen w-full relative" style={{ background: C.bg, ...fontBody }}>
       <style>{FONT_IMPORT}</style>
       <ScrollProgress />
-      <Nav page={page} setPage={setPage} />
+      <Nav page={page} setPage={setPage} goConsult={goConsult} />
       {page === "home" ? (
         <HomePage goConsult={goConsult} onSelectMedia={setActiveMedia} />
       ) : (
