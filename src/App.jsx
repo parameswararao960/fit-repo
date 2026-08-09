@@ -456,9 +456,6 @@ function Hero({ goConsult, onOpenMedia }) {
               <PrimaryButton onClick={goConsult}>
                 <div className="flex flex-col items-center text-center leading-tight">
                   <span className="font-extrabold uppercase">Book Consultation</span>
-                  <span className="text-[10px] font-normal tracking-wide normal-case mt-0.5 opacity-90" style={{ ...fontMono }}>
-                    limited to only 2 slots per day to ensure quality
-                  </span>
                 </div>
               </PrimaryButton>
             </div>
@@ -499,9 +496,6 @@ function Hero({ goConsult, onOpenMedia }) {
               <PrimaryButton onClick={goConsult}>
                 <div className="flex flex-col items-center text-center leading-tight">
                   <span className="font-extrabold uppercase">Book Consultation</span>
-                  <span className="text-[10px] font-normal tracking-wide normal-case mt-0.5 opacity-90" style={{ ...fontMono }}>
-                    limited to only 2 slots per day to ensure quality
-                  </span>
                 </div>
               </PrimaryButton>
             </div>
@@ -670,7 +664,7 @@ function Testimonials() {
     },
     {
       id: "v3",
-      src: "/videos/VN20260726_111127.mp4",
+      src: "/videos/VN20260726_111558.mp4",
       title: "Client Video Review 3",
     },
 
