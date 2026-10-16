@@ -482,7 +482,7 @@ function Hero({ goConsult, onOpenMedia }) {
             >
               <div className="relative aspect-[9/13] max-h-[500px] w-full overflow-hidden bg-black mx-auto">
                 <iframe
-                  src="https://www.youtube.com/embed/bmpcvCL_qDo?controls=0&rel=0&modestbranding=1&loop=1&playlist=bmpcvCL_qDo"
+                  src="https://www.youtube.com/embed/E7gEWUEed90?controls=0&rel=0&modestbranding=1&loop=1&playlist=E7gEWUEed90"
                   title="Transformation Video"
                   className="w-full h-[116%] border-0 origin-top"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
